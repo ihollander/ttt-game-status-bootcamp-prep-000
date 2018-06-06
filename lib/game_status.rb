@@ -16,13 +16,14 @@ WIN_COMBINATIONS = [
 ]
 
 def won?(board)
-  WIN_COMBINATIONS.each do |win_array|
-    ["X","O"].each do |char|
-      if win_array.all? do |position|
-          board[position] == char
+  WIN_COMBINATIONS.each do |win_array| #iterate through win conditions
+    if position_taken?(board, win_array[0]) #check if first position of win condition is taken
+      token = board[win_array[0]] #get the token from the first position to check
+      if win_array.all? do |position| #check if all positions in the win condition have the token
+          board[position] == token
         end
-        return win_array
-      end
+        return win_array #return the win condition
+      end  
     end
   end
   false
@@ -41,7 +42,8 @@ def over?(board)
 end
 
 def winner(board)
-  if won?(board)
-    board[won?(board)[0]]
+  winning_board = won?(board)
+  if winning_board
+    board[winning_board[0]]
   end
 end
